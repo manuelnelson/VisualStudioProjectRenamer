@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutBoxCloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AboutBoxCompany" xml:space="preserve">
+    <value>Company: {0}</value>
+  </data>
+  <data name="AboutBoxCopyRight" xml:space="preserve">
+    <value>Copyright: {0}</value>
+  </data>
+  <data name="AboutBoxDescription" xml:space="preserve">
+    <value>The Visual Studio Project Renamer is working with the latest Version of SVN (Subversion 1.7.4). More version control tools such as TFS or Git will be added in the future. For more information please visit http://normankosmal.com</value>
+  </data>
+  <data name="AboutBoxProduct" xml:space="preserve">
+    <value>Visual Studio Project Renamer</value>
+  </data>
+  <data name="AboutBoxProductVersion" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="AboutBoxText" xml:space="preserve">
+    <value>About Visual Studio Project Renamer</value>
+  </data>
+  <data name="ConfirmationDialogCancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmationDialogConfirmRenameQuestion" xml:space="preserve">
+    <value>Do you really want to rename project {0} into {1}?</value>
+  </data>
+  <data name="ConfirmationDialogFormText" xml:space="preserve">
+    <value>Please confirm</value>
+  </data>
+  <data name="ConfirmationDialogOKButtonText" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="DiagnosticFormCloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="DiagnosticFormText" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DownloadFormDownloadFinishedDiagMessage" xml:space="preserve">
+    <value>Finished downloading file to: {0}</value>
+  </data>
+  <data name="DownloadFormDownloadFinishedHeaderLabelText" xml:space="preserve">
+    <value>Download finished..</value>
+  </data>
+  <data name="DownloadFormDownloadingUpdateFormText" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="DownloadFormErrorWhileDownloadingDiagMessage" xml:space="preserve">
+    <value>Error while downloading: {0}</value>
+  </data>
+  <data name="DownloadFormInstallButtonText" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="ErrorDialogCloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ErrorDialogCopyButtonText" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="ErrorDialogCopyErrorMessageToolTip" xml:space="preserve">
+    <value>Attemps to copy the error message to the clipboard.</value>
+  </data>
+  <data name="ErrorDialogErrorMessageCopied" xml:space="preserve">
+    <value>Error message was copied to the clipboard.</value>
+  </data>
+  <data name="ErrorDialogErrorMessageLabelText" xml:space="preserve">
+    <value>An error occured while renaming, check details below:</value>
+  </data>
+  <data name="ErrorDialogFormText" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="InstallerExecutingBatchFileMessage" xml:space="preserve">
+    <value>Executing batch file {0}</value>
+  </data>
+  <data name="InstallerExtensionNotSupportedMessage" xml:space="preserve">
+    <value>Extension ({0}) is not supported, please execute ({1}) manually</value>
+  </data>
+  <data name="InstallerGeneratingBatchFileMessage" xml:space="preserve">
+    <value>Generating batch file in {0}</value>
+  </data>
+  <data name="InstallerMessageBoxCaption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MainFormBrowseButtonText" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="MainFormButtonSendToTrayToolTip" xml:space="preserve">
+    <value>Minimize to tray</value>
+  </data>
+  <data name="MainFormButtonShowAboutFormToolTip" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MainFormButtonShowSettingsFormToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MainFormCheckBoxCheckInChangesText" xml:space="preserve">
+    <value>Check in changes after renaming?</value>
+  </data>
+  <data name="MainFormCheckboxRenameMainEntryFile" xml:space="preserve">
+    <value>Rename main entry file (C++)?</value>
+  </data>
+  <data name="MainFormCheckBoxSolutionVersionControlText" xml:space="preserve">
+    <value>Solution under version control?</value>
+  </data>
+  <data name="MainFormCloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="MainFormErrorMessageNewProjectNameEqualsOldProjectNameOrIsEmpty" xml:space="preserve">
+    <value>The new name for the project can not be the same as the old one or empty.</value>
+  </data>
+  <data name="MainFormErrorNoSolutionFile" xml:space="preserve">
+    <value>Solution can not be empty, or the selected file is no solution.</value>
+  </data>
+  <data name="MainFormLabelNewProjectNameText" xml:space="preserve">
+    <value>New project name</value>
+  </data>
+  <data name="MainFormLabelOldProjectNameText" xml:space="preserve">
+    <value>Old project name</value>
+  </data>
+  <data name="MainFormNotifyIconBallonTipText" xml:space="preserve">
+    <value>VisualStudioProjectRenamer is now running in the background</value>
+  </data>
+  <data name="MainFormRenameButtonText" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="MainFormStatusLabelRenamingFailed" xml:space="preserve">
+    <value>An error occured while renaming.</value>
+  </data>
+  <data name="MainFormStatusLabelRenamingProject" xml:space="preserve">
+    <value>Renaming project...</value>
+  </data>
+  <data name="MainFormStatusLabelRenamingSuccessfull" xml:space="preserve">
+    <value>Project successfully renamed.</value>
+  </data>
+  <data name="MainFormStatusLabelSelectProject" xml:space="preserve">
+    <value>Select the project to rename.</value>
+  </data>
+  <data name="MainFormStatusLabelSelectSolution" xml:space="preserve">
+    <value>Select the solution file, which contains the project to rename.</value>
+  </data>
+  <data name="MainFormUpdateButtonToolTipText" xml:space="preserve">
+    <value>Check for update</value>
+  </data>
+  <data name="NoUpdateRequiredCaption" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="NoUpdateRequiredMessage" xml:space="preserve">
+    <value>No update needed.</value>
+  </data>
+  <data name="RenameErrorNoSupportedProjectFound" xml:space="preserve">
+    <value>Could not find a supported project in {0}.</value>
+  </data>
+  <data name="RevertErrorMessage" xml:space="preserve">
+    <value>An error occured while trying to revert changes: {0}</value>
+  </data>
+  <data name="SettingsFormApplyButtonText" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="SettingsFormChooseLanguageLabelText" xml:space="preserve">
+    <value>Choose language</value>
+  </data>
+  <data name="SettingsFormFormText" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsFormLanguageSettingsLabelText" xml:space="preserve">
+    <value>Language settings</value>
+  </data>
+  <data name="SettingsFormLayoutSettingsLabelText" xml:space="preserve">
+    <value>Layout settings</value>
+  </data>
+  <data name="SettingsFormProxyAddressLabelText" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="SettingsFormProxyPasswordLabelText" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SettingsFormProxySettingsLabelText" xml:space="preserve">
+    <value>Proxy settings</value>
+  </data>
+  <data name="SettingsFormProxyUsernameLabelText" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="SettingsFormUpdateCheckBoxText" xml:space="preserve">
+    <value>Check for update on startup?</value>
+  </data>
+  <data name="SettingsFormUpdateLabelText" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SettingsFormUseSystemLanguageLabeltext" xml:space="preserve">
+    <value>Use system language</value>
+  </data>
+  <data name="UpdaterCheckingAppCastDiagMessage" xml:space="preserve">
+    <value>Downloading and checking appcast</value>
+  </data>
+  <data name="UpdaterErrorDownloadingAppCastDiagMessage" xml:space="preserve">
+    <value>Error during app cast download: {0}</value>
+  </data>
+  <data name="UpdaterFormCancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="UpdaterFormInfoText" xml:space="preserve">
+    <value>{0} {1} is now available (you have {2}). Would you like to download it now?</value>
+  </data>
+  <data name="UpdaterFormInstallButtonText" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="UpdaterFormNewVersionAvailable" xml:space="preserve">
+    <value>A new version of {0} is available!</value>
+  </data>
+  <data name="UpdaterFormText" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="UpdaterInstalledVersionIsValidDiagMessage" xml:space="preserve">
+    <value>Installed version is valid, no update needed ({0})</value>
+  </data>
+  <data name="UpdaterLatestVersionDiagMessage" xml:space="preserve">
+    <value>Version on the server is {0}</value>
+  </data>
+  <data name="UpdaterNoVersionInfoInAppCastDiagMessage" xml:space="preserve">
+    <value>No version information in app cast found</value>
+  </data>
+  <data name="UpdaterReadingConfigDiagMessage" xml:space="preserve">
+    <value>Reading configuration</value>
+  </data>
+  <data name="UpdaterUpdateNeededDiagMessage" xml:space="preserve">
+    <value>Update needed from version {0} to version {1}</value>
+  </data>
+  <data name="UpdaterUpdateStartDiagMessage" xml:space="preserve">
+    <value>Starting update</value>
+  </data>
+  <data name="UpdaterUsingUrlDiagMessage" xml:space="preserve">
+    <value>Checking {0}</value>
+  </data>
+</root>
