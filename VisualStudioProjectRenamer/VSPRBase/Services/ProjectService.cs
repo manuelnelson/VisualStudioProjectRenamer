@@ -20,9 +20,10 @@
                     if(line.StartsWith("Project("))
                     {
                         Project project = new Project();
-
+                        
                         var buffer = line.Split(new[] { '"' });
-
+                        if (!buffer[5].ContainsValidProjectExtension())
+                            continue;
                         project.ProjectTypeGuid = Guid.Parse(buffer[1]);
                         project.ProjectName = buffer[3];
                         project.ProjectPath = buffer[5];

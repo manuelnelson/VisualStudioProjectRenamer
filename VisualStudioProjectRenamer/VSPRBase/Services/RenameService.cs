@@ -46,8 +46,8 @@
 
 		public void Rename(RenameContext renameContext)
 		{
-			bool renameSuccessfull = true;
-			bool rollbackSuccessfull = true;
+			var renameSuccessfull = true;
+			var rollbackSuccessfull = true;
 
 			this.context = renameContext;
 
@@ -89,21 +89,21 @@
 			// Since we maybe have renamed the main entry file of c++ projects, we need to adjust the
 			// reference to that file in the project file.
 			ReplaceReferencesToMainEntryFileInProjectFile();
-
 			ReplaceProjectReferencesInSolutionFile();
 			ReplaceOccurencesInProjectFile();
 			ReplaceOccurencesInSpecialFiles();
-			ReplaceOccurencesInNameSpaces();
-			ReplaceOccurencesInUsingBlocks();
-			ReplaceOccurencesInGlobalDeclarations();
 
-            //We need to cycle through other projects in solution file
-            //var projects = projectService.GetProjects(context.Solution);
-            //foreach (var project in projects)
-            //{
-            //    UpdateProjectReferences(project.ProjectFile);
-            //    UpdateOccurencesIn
-            //}
+            var projects = projectService.GetProjects(context.Solution);
+
+            //We need to cycle through other projects in solution file and correct references, namespaces, etc
+            foreach (var project in projects)
+            {
+                project.ProjectDirectory = GetProjectDirectory(project);
+                UpdateProjectReferences(project);
+                ReplaceOccurencesInNameSpacesForProject(project);
+                ReplaceOccurencesInProjectCodeOnly(project);
+                ReplaceOccurencesInGlobalDeclarations(project);
+            }
             
             if (commitChanges)
 			{
@@ -138,7 +138,7 @@
 		{
 			string fileContent;
 
-			using(StreamReader reader = new StreamReader(file))
+			using(var reader = new StreamReader(file))
 			{
 				fileContent = reader.ReadToEnd();
 			}
@@ -147,13 +147,13 @@
 			fileContent = Regex.Replace(fileContent, searchFor, replaceWith);
 
 			// Write modified file content back to file
-			using(StreamWriter writer = new StreamWriter(file))
+			using(var writer = new StreamWriter(file))
 			{
 				writer.Write(fileContent);
 			}
 		}
 
-		private void ReplaceOccurencesInNameSpaces()
+		private void ReplaceOccurencesInNameSpacesForProject(Project project)
 		{
 			string[] files;
 			string searchFor;
@@ -162,7 +162,7 @@
 			// Special treatment of C++ Projects.. // TODO NKO Refactor this 
 			if(context.OldProject.ProjectType.Equals(ProjectType.Cplusplus))
 			{
-				files = Directory.GetFiles(context.NewProject.ProjectDirectory, "*", SearchOption.AllDirectories);
+				files = Directory.GetFiles(project.ProjectDirectory, "*", SearchOption.AllDirectories);
 
 				searchFor = string.Format("{0} {1} {2}", "namespace", context.OldProject.ProjectName, "{");
 				replaceWith = string.Format("{0} {1} {2}", "namespace", context.NewProject.ProjectName, "{");
@@ -180,8 +180,8 @@
 			}
 
 			// For every other project for now this is the way to go..
-			files = Directory.GetFiles(context.NewProject.ProjectDirectory,
-				string.Format("*{0}", context.NewProject.ClassfileExtension), SearchOption.AllDirectories);
+			files = Directory.GetFiles(project.ProjectDirectory,
+				string.Format("*{0}", project.ClassfileExtension), SearchOption.AllDirectories);
 
 			searchFor = string.Format("{0} {1}", Constants.Namespace, context.OldProject.ProjectName);
 			replaceWith = string.Format("{0} {1}", Constants.Namespace, context.NewProject.ProjectName);
@@ -192,20 +192,20 @@
 			}
 		}
 
-        //private void UpdateProjectReferences(string projectFile)
-        //{
-        //    Replace(projectFile, context.OldProject.ProjectName, context.NewProject.ProjectName);
-        //}
+        private void UpdateProjectReferences(Project project)
+        {
+            Replace(project.ProjectFile, context.OldProject.ProjectName, context.NewProject.ProjectName);
+        }
 
 		private void ReplaceOccurencesInProjectFile()
 		{
-			XmlDocument xmldoc = new XmlDocument();
+			var xmldoc = new XmlDocument();
 			xmldoc.Load(context.NewProject.ProjectFile);
 
-			XmlNamespaceManager namespaceManager = new XmlNamespaceManager(xmldoc.NameTable);
+			var namespaceManager = new XmlNamespaceManager(xmldoc.NameTable);
 			namespaceManager.AddNamespace("x", "http://schemas.microsoft.com/developer/msbuild/2003");
 
-			XmlNodeList nodes = xmldoc.SelectNodes("//x:RootNamespace", namespaceManager);
+			var nodes = xmldoc.SelectNodes("//x:RootNamespace", namespaceManager);
 			if(nodes != null)
 			{
 				foreach(XmlNode item in nodes)
@@ -267,8 +267,9 @@
 					break;
 			}
 		}
-
-		private void ReplaceOccurencesInUsingBlocks()
+        //Will only look through project code (.cs, .vb, .cshtml, .asax) to do replacements
+        //Note: this used to go through using blocks (c++ code still does).  It was just missing a few occurences that I'd like to grab.
+		private void ReplaceOccurencesInProjectCodeOnly(Project project)
 		{
 			string[] files;
 			string searchFor;
@@ -276,35 +277,34 @@
 
 			if(this.context.OldProject.ProjectType.Equals(ProjectType.Cplusplus))
 			{
-				files = Directory.GetFiles(context.NewProject.ProjectDirectory, "*", SearchOption.AllDirectories);
+				files = Directory.GetFiles(project.ProjectDirectory, "*", SearchOption.AllDirectories);
 
 				searchFor = string.Format("{0} {1}{2}", "using namespace", context.OldProject.ProjectName, ";");
 				replaceWith = string.Format("{0} {1}{2}", "using namespace", context.NewProject.ProjectName, ";");
 
-				foreach(string file in files)
+				foreach (var file in files.Where(file => !file.EndsWith(".rc") && !file.EndsWith(".ico") && !file.EndsWith(".resX")))
 				{
-					// Ommit these files..
-					if(!file.EndsWith(".rc") && !file.EndsWith(".ico") && !file.EndsWith(".resX"))
-					{
-						Replace(file, searchFor, replaceWith);
-					}
+				    Replace(file, searchFor, replaceWith);
 				}
 			}
 
-			files = Directory.GetFiles(context.NewProject.ProjectDirectory, string.Format("*{0}", context.NewProject.ClassfileExtension), SearchOption.AllDirectories);
+            //searchFor = string.Format("{0} {1}", Constants.Using, context.OldProject.ProjectName);
+            //replaceWith = string.Format("{0} {1}", Constants.Using, context.NewProject.ProjectName);
+            searchFor = string.Format("{0}", context.OldProject.ProjectName);
+            replaceWith = string.Format("{0}", context.NewProject.ProjectName);
 
-			searchFor = string.Format("{0} {1}", Constants.Using, context.OldProject.ProjectName);
-			replaceWith = string.Format("{0} {1}", Constants.Using, context.NewProject.ProjectName);
+            files = Directory.GetFiles(project.ProjectDirectory, "*.*", SearchOption.AllDirectories)
+                    .Where(file => file.ToLower().EndsWith(project.ClassfileExtension) || file.ToLower().EndsWith("cshtml") || file.ToLower().EndsWith("asax")).ToArray();
 
-			foreach(string file in files)
+			foreach(var file in files)
 			{
 				Replace(file, searchFor, replaceWith);
 			}
 		}
 
-		private void ReplaceOccurencesInGlobalDeclarations()
+		private void ReplaceOccurencesInGlobalDeclarations(Project project)
 		{
-			string[] files = Directory.GetFiles(context.NewProject.ProjectDirectory, string.Format("*{0}", context.NewProject.ClassfileExtension), SearchOption.AllDirectories);
+			string[] files = Directory.GetFiles(project.ProjectDirectory, string.Format("*{0}", project.ClassfileExtension), SearchOption.AllDirectories);
 
 			string searchFor = string.Format("{0}{1}", Constants.Global, context.OldProject.ProjectName);
 			string replaceWith = string.Format("{0}{1}", Constants.Global, context.NewProject.ProjectName);
@@ -337,39 +337,18 @@
 			return success;
 		}
 
-		private void SetDirectories()
+		private string GetProjectDirectory(Project project)
 		{
-			// TODO NKO Refactor this..actually read the folder name from the solution file instead of assuming there is a folder with the projectname in the root..
-			// Get the absolute path to the solution directory from the solution path
-			DirectoryInfo solutionDirectory = Directory.GetParent(solutionPath);
-			if(solutionDirectory != null && !string.IsNullOrEmpty(solutionDirectory.FullName))
-			{
-				solutionDirectoryPath = solutionDirectory.FullName;
-			}
-			else
-			{
-				// There was no directory found (This should actually not be happening)
-				string message = string.Format(Constants.NoParentDirectoryFoundError, solutionDirectory);
-				throw new ArgumentException(message);
-			}
-
 			// Find exactly one directory within the solution directory, that has the old project name
-			List<string> directories = Directory.GetDirectories(solutionDirectoryPath, context.OldProject.FolderName, SearchOption.TopDirectoryOnly).ToList();
-			if(directories.Count == 1)
+			var directories = Directory.GetDirectories(solutionDirectoryPath, project.FolderName, SearchOption.TopDirectoryOnly).ToList();
+			if(directories.Count != 1)
 			{
-				// Set the old project directory
-				context.OldProject.ProjectDirectory = directories[0];
-
-				// Set the new project directory
-				context.NewProject.ProjectDirectory = string.Format("{0}{1}{2}", Directory.GetParent(context.OldProject.ProjectDirectory), "\\", context.NewProject.ProjectName);
-			}
-			else
-			{
-				// There was no directory found in the solution directory, that contains the old project name.
-				string message = string.Format(Constants.NoProjectDirectoryFoundError, context.OldProject.ProjectName);
-				throw new ArgumentException(message);
-			}
-		}
+                // There was no directory found in the solution directory, that contains the old project name.
+                string message = string.Format(Constants.NoProjectDirectoryFoundError, context.OldProject.ProjectName);
+                throw new ArgumentException(message);
+            }
+		    return directories[0];
+        }
 
 		private bool Setup(string solutionFilePath)
 		{
@@ -380,7 +359,20 @@
 			context.OldProject.SolutionPath = solutionFilePath;
 			context.NewProject.SolutionPath = solutionFilePath;
 
-			SetDirectories();
+            // TODO NKO Refactor this..actually read the folder name from the solution file instead of assuming there is a folder with the projectname in the root..
+			// Get the absolute path to the solution directory from the solution path
+			var solutionDirectory = Directory.GetParent(solutionPath);
+            if (solutionDirectory == null || string.IsNullOrEmpty(solutionDirectory.FullName))
+            {
+                // No directory found 
+                var message = string.Format(Constants.NoParentDirectoryFoundError, solutionDirectory);
+                throw new ArgumentException(message);                
+            }			
+            solutionDirectoryPath = solutionDirectory.FullName;
+
+            //Set project directories
+            context.OldProject.ProjectDirectory = GetProjectDirectory(context.OldProject);
+            context.NewProject.ProjectDirectory = string.Format("{0}{1}{2}", Directory.GetParent(context.OldProject.ProjectDirectory), "\\", context.NewProject.ProjectName);
 
 			// return true if the project type is supported.
 			return !context.OldProject.ProjectType.Equals(ProjectType.NotSupported);

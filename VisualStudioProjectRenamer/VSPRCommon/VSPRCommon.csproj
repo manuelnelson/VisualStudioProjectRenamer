@@ -69,6 +69,7 @@
     <Compile Include="Proxy.cs" />
     <Compile Include="RenameContext.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="Utf8StreamWriter.cs" />
   </ItemGroup>
   <ItemGroup>
